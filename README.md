@@ -62,8 +62,8 @@ In scenarios involving financial payments, user privacy information transmission
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/yourusername/spring-boot-api-encryption.git
-   cd spring-boot-api-encryption
+   git clone https://github.com/Codes-tutorials/medium-projects.git
+   cd medium-projects/spring-boot-api-encryption
    ```
 
 2. **Build the project**
@@ -242,8 +242,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Support
 
 - 📧 Email: support@example.com
-- 💬 Issues: [GitHub Issues](https://github.com/yourusername/spring-boot-api-encryption/issues)
-- 📖 Wiki: [Project Wiki](https://github.com/yourusername/spring-boot-api-encryption/wiki)
+- 💬 Issues: [GitHub Issues](https://github.com/Codes-tutorials/medium-projects/issues)
+- 📖 Wiki: [Project Wiki](https://github.com/Codes-tutorials/medium-projects/wiki)
 
 ---
 
