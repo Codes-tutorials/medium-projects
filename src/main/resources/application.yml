@@ -1,0 +1,121 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+
+spring:
+  application:
+    name: spring-boot-api-encryption
+  profiles:
+    active: dev
+  
+  # Jackson Configuration
+  jackson:
+    default-property-inclusion: non_null
+    serialization:
+      write-dates-as-timestamps: false
+    deserialization:
+      fail-on-unknown-properties: false
+
+# Custom Encryption Configuration
+encryption:
+  aes:
+    key: "MySecretKey12345"  # 16-byte key for AES-128
+    algorithm: "AES/ECB/PKCS5Padding"
+    enabled: true
+  
+  rsa:
+    key-size: 1024
+    algorithm: "RSA"
+    enabled: true
+  
+  # Paths that require encryption
+  enabled-paths:
+    - "/api/v1/**"
+    - "/api/secure/**"
+    - "/api/filter/**"
+  
+  # Paths to exclude from encryption
+  excluded-paths:
+    - "/api/public/**"
+    - "/actuator/**"
+    - "/swagger-ui/**"
+    - "/v3/api-docs/**"
+
+# Logging Configuration
+logging:
+  level:
+    com.example.encryption: DEBUG
+    org.springframework.security: DEBUG
+    org.springframework.web: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+  file:
+    name: logs/encryption-demo.log
+
+# Management Endpoints
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when_authorized
+  info:
+    env:
+      enabled: true
+
+# API Documentation
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+  show-actuator: true
+
+---
+# Development Profile
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+logging:
+  level:
+    root: INFO
+    com.example.encryption: DEBUG
+
+encryption:
+  aes:
+    key: "DevSecretKey123"
+  debug-mode: true
+
+---
+# Production Profile
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+logging:
+  level:
+    root: WARN
+    com.example.encryption: INFO
+
+encryption:
+  aes:
+    key: ${ENCRYPTION_AES_KEY:ProductionKey123}
+  rsa:
+    key-size: 2048
+  debug-mode: false
+
+# Security headers for production
+server:
+  servlet:
+    session:
+      cookie:
+        secure: true
+        http-only: true

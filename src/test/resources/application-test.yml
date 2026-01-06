@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: spring-boot-api-encryption-test
+
+# Test-specific encryption configuration
+encryption:
+  aes:
+    key: "TestSecretKey123"
+    algorithm: "AES/ECB/PKCS5Padding"
+    enabled: true
+  
+  rsa:
+    key-size: 1024
+    algorithm: "RSA"
+    enabled: true
+  
+  enabled-paths:
+    - "/api/test/**"
+  
+  excluded-paths:
+    - "/actuator/**"
+  
+  debug-mode: true
+
+# Logging for tests
+logging:
+  level:
+    com.example.encryption: DEBUG
+    org.springframework.web: INFO
+  pattern:
+    console: "%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"
+
+# Disable unnecessary features for testing
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
